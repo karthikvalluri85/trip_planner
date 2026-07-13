@@ -1,39 +1,127 @@
-# trip_planner
-A multi-agent travel agent using LangGraph
+# ✈️ TripMate AI — A Multi-Agent Travel Planner with LangGraph
 
-## How to run?
+An open-source AI travel planner that turns a natural-language trip request into a practical travel plan with flight suggestions, hotel ideas, and a day-by-day itinerary. The project uses a multi-agent workflow built with LangGraph, LangChain, and FastAPI.
 
-### 1. Create the virtual environment
+## Why this project?
 
-```powershell
-python -m venv .venv
+Planning a trip usually means jumping between multiple websites, tools, and spreadsheets. This project brings that flow into one experience by combining:
+
+- a flight-search agent,
+- a hotel-research agent,
+- an itinerary-planning agent, and
+- a final response agent,
+
+all coordinated through a LangGraph workflow.
+
+## Features
+
+- ✈️ Flight research using AviationStack
+- 🏨 Hotel suggestions using Tavily search
+- 🧠 Multi-agent orchestration with LangGraph
+- 📝 Structured travel itinerary generation
+- 🌐 FastAPI backend with a simple web interface
+- 💾 Conversation state persistence using PostgreSQL
+- ⚡ LLM-powered responses with Groq
+
+## Tech Stack
+
+- Python 3.10+
+- FastAPI
+- Jinja2 + HTML/CSS/JavaScript frontend
+- LangGraph
+- LangChain
+- Groq LLMs
+- PostgreSQL
+- Tavily API
+- AviationStack API
+
+## Project Structure
+
+```text
+.
+├── app.py                # FastAPI app entry point
+├── backend.py            # LangGraph travel workflow
+├── requirements.txt      # Python dependencies
+├── static/               # Static frontend assets
+├── templates/            # HTML templates
+└── tools/                # Flight and web search integrations
 ```
 
-### 2. Activate the virtual environment (Windows / PowerShell)
+## Prerequisites
 
-From the project root (`C:\projects_de\trip_planner`), run:
+Before running the project locally, make sure you have:
 
-```powershell
-.venv\Scripts\Activate.ps1
+- Python 3.10 or newer installed
+- PostgreSQL running and accessible
+- API keys for:
+  - Groq
+  - Tavily
+  - AviationStack
+
+## Environment Variables
+
+Create a .env file in the project root with the following variables:
+
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/travel_db
+GROQ_API_KEY=your_groq_api_key
+AVIATIONSTACK_API_KEY=your_aviationstack_api_key
+TAVILY_API_KEY=your_tavily_api_key
+DEFAULT_ORIGIN_IATA=DAC
 ```
 
-> **Note:** In PowerShell the activation script is `Activate.ps1` — not the bare
-> `activate` file (that one is for bash/cmd). PowerShell also won't run a script
-> from the current folder without a path prefix, so if you're already inside
-> `.venv\Scripts` use `.\Activate.ps1` instead.
-
-If you get a **"running scripts is disabled on this system"** error, allow signed
-scripts for your user account (no admin rights needed) and try again:
-
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
-When activation succeeds, your prompt is prefixed with `(.venv)`. To leave the
-environment later, run `deactivate`.
-
-### 3. Create and isntall requirments.txt file
+## Installation
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+
+## Running the App
+
+Start the FastAPI server:
+
+```bash
+python app.py
+```
+
+Then open your browser at:
+
+```text
+http://127.0.0.1:8000/
+```
+
+## API Endpoints
+
+- GET /health - Health check
+- POST /api/travel - Submit a travel request
+
+Example request:
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/travel \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Plan a 3-day trip to Tokyo with a budget of $1200"}'
+```
+
+## How the Workflow Works
+
+1. The user submits a travel request.
+2. The flight agent gathers flight-related information.
+3. The hotel agent searches for accommodation suggestions.
+4. The itinerary agent creates a practical travel plan.
+5. The final agent formats the result into a polished response.
+
+## Contributing
+
+Contributions are welcome. If you want to improve the app, add new travel features, or fix issues:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Open a pull request
+
+## Acknowledgments
+
+This project is built with the help of modern LLM tooling and travel APIs, and it is intended as a practical example of combining LangGraph agents with real-world applications.
