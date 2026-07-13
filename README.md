@@ -37,14 +37,3 @@ environment later, run `deactivate`.
 ```bash
 pip install -r requirements.txt
 ```
-
-postgresql://agent_db_qmq9_user:oJtImdWtNYnXtUKAE80zuPy3Z6DBLS08@dpg-d9adnu77f7vs739id46g-a.oregon-postgres.render.com/agent_db_qmq9
-
-# To install: pip install tavily-python
-from tavily import TavilyClient
-client = TavilyClient("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")
-response = client.search(
-    query="",
-    search_depth="advanced"
-)
-print(response)
